@@ -12,7 +12,6 @@ int main()
   int socket;
   struct sockaddr_in_server_address;
   char buffer [261];
-  int random_number;
   int x;
   
   socket = socket (AF_INET, SOCK_STREAM, 0);
@@ -24,18 +23,25 @@ int main()
     serverAddress.sin_addr.s_addr = INADDR_ANY;
     serverAddress.sin_port = htons (8080);
     
-    if (bind (socket, struct sockaddr *) & server_address, sizeof (server_address)) < 0)
-      perror (Error. Could not bind.);
+    if (connect (socket, struct sockaddr *) & server_address, sizeof (server_address)) < 0)
+      perror ("Error. Could not connect.");
       
-    listen (socket, 5);
+    bf (buffer, sizeof (buffer) -1);
     
-    if (x < 0)
+    int (x < 0)
       perror ("Error. Could not write.");
-    
-    srand (time (NULL));
-    random_number = (rand() % 900) + 100;
+      
+    printf ("Random Number: %s \n", buffer);
     
     close (socket);
+    
     return 0;
+  }
+  
+  void error (const char *notice)
+  {
+    perror (notice);
+    
+    exit (1);
   }
 }
