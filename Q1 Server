@@ -1,0 +1,56 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <time.h>
+
+int main ()
+{
+  int socket, newSocket;
+  struct sockaddr_in server_address, client_address;
+  char buffer [261];
+  int random_number;
+  int x;
+  
+  socket = socket (AF_INET, SOCK_STREAM, 0);
+  
+  if (socket < 0)
+    perror ("Error. Could not open.");
+    
+  serverAddress.sin_family = AF_INET;
+  serverAddress.sin_addr.s_addr = INDDR_ANY;
+  serverAddress.sin_port = htons (8080);
+  
+  if (bind (socket, (struct sockaddr  *) &server_address, sizeof (server_address)) < 0)
+    perror ("Error. Could not bind.")
+    
+  listen (socket, 5);
+  
+  socklen_t client_length = sizeof (client_address);
+  newSocket = accept (socket, (struct sockaddr  *) &client_address, &client_length);
+  if (newSocket < 0)
+    perror ("Error. Could not accept.");
+    
+  srand (time (NULL));
+  random_number = (rand() % 900) + 100;
+  sprintf (buffer, "%d", random_number);
+  
+  x = write (newSocket, buffer, sizeof (buffer));
+  
+  if (x < 0)
+    perror ("Error. Could not write.");
+    
+  close (socket);
+  close (newSocket);
+  
+  return 0;
+}
+
+void error (const char *notice)
+{
+  perror (notice);
+  
+  exit (1);
+}
